@@ -5,11 +5,19 @@
 An example how we can use this:
 
 ```elixir
-changeset
-|> authorize(user, :update)
-|> if_ok(&Repo.update)
-|> if_ok(&broadcast_out)
-|> if_ok(:ok)
+defmodule MyApp.DoStuff do
+  import IfOk
+  alias MyApp.Repo
+
+  def broadcast_out(item) do: {:ok, item}
+  def update(changeset) do
+    changeset
+    |> authorize(user, :update)
+    |> if_ok(&Repo.update)
+    |> if_ok(&broadcast_out)
+    |> if_ok(:ok)
+  end
+end
 ```
 
 ## Installation
