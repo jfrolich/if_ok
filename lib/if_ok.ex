@@ -9,7 +9,8 @@ defmodule IfOk do
   def if_ok(input, fun) when is_function(fun) do
     input
     |> case do
-      {:ok, payload} -> transform_result(fun.(payload))
+      {:ok, payload} ->
+        transform_result(fun.(payload))
       :ok -> transform_result(fun.())
       other -> other
     end
