@@ -10,7 +10,7 @@ defmodule MyApp.DoStuff do
   alias MyApp.Repo
 
   def broadcast_out(item) do: {:ok, item}
-  def update(changeset) do
+  def update(changeset, user) do
     changeset
     |> authorize(user, :update)
     |> if_ok(&Repo.update)
